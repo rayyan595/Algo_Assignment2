@@ -1,0 +1,36 @@
+def MergeSort(arr): #Creates the function
+    if len(arr) <= 1:
+        return arr
+
+    middle = len(arr) // 2 #Used to divide the array into 2 
+    LeftSide = arr[:middle]
+    RightSide = arr[middle:]
+
+    LeftSide = MergeSort(LeftSide) #Recursive merge sort for the left side
+    RightSide = MergeSort(RightSide) #Recursive merge sort for the right side
+
+    return Merge(LeftSide, RightSide) #Merges the Left and Right Side that were divided
+
+def Merge(Left, Right): #Creates the function
+    result = []
+    LeftPartition, RightPartition = 0, 0
+
+#Merges the left and right together while keeping the sorted order
+    while LeftPartition < len(Left) and RightPartition < len(Right):
+        if Left[LeftPartition] < Right[RightPartition]:
+            result.append(Left[LeftPartition])
+            LeftPartition += 1
+        else:
+            result.append(Right[RightPartition])
+            RightPartition += 1
+
+#The remaining elements from each half will be appended 
+    result.extend(Left[LeftPartition:])
+    result.extend(Right[RightPartition:])
+
+    return result # returns the results
+
+
+arr = [11, 1, 30, 2, 51, 6, 29, 7, 67, 15, 118, 4, 89, 23] #The Product ID unsorted
+sorted_arr = MergeSort(arr)
+print("The Sorted array:", sorted_arr) #Prints the array in the sorted order
